@@ -24,6 +24,7 @@ function addToArray() {
     totalAnnualy += newPerson.salary;
     return newPerson;
 }
+
 function makeEmployee(first, last, id, title, salary) {
     return {
         first: first,
@@ -37,13 +38,14 @@ function makeEmployee(first, last, id, title, salary) {
 function submitEvent() {
     let newPerson = addToArray();
     console.log(newPerson); // For testing
+    let formattedSalary = turnIntoNumberString(newPerson.salary);
     $('tbody').append(`
     <tr>
     <td>${newPerson.first}</td>
     <td>${newPerson.last}</td>
     <td>${newPerson.id}</td>
     <td>${newPerson.title}</td>
-    <td>${'$ ' + newPerson.salary}</td>
+    <td>${formattedSalary}</td>
     <td class="deleteCell"><button class="deleteButton">Delete</button></td>
 </tr>
 `);
@@ -54,8 +56,8 @@ function submitEvent() {
 
 function updateTotalMontly() {
     let totalMonthly = turnIntoNumberString(totalAnnualy / 12);
-    $('.salaryTotalArea').empty();
-    $('.salaryTotalArea').append(`<p>Total Monthly: ${totalMonthly}</p>`);
+    $('#salaryTotalArea').empty();
+    $('#salaryTotalArea').append(`<p>Total Monthly: ${totalMonthly}</p>`);
 
 }
 

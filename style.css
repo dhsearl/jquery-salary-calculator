@@ -1,5 +1,5 @@
 div{
-    border: 1px solid green;
+    /* border: 1px solid green; */
 }
 body{
     margin: 0 auto;
@@ -47,5 +47,10 @@ input {
     height: 1.2rem;
 }
 #addEmployeeButton {
+    margin-right: 1rem;
+    float:right;
     color:blue;
+}
+#salaryTotalArea{
+    text-align:right;
 }
