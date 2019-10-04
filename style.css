@@ -1,3 +1,44 @@
 div{
     border: 1px solid green;
 }
+body{
+    margin: 0 auto;
+    width: 95%;
+    max-width: 900px;
+}
+table{
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+th{
+    border: 1px solid black;
+    text-align:left;
+    padding: 5px;
+}
+td{
+    border: 1px solid black;
+    width: 16%;
+    text-align: left;
+    padding: 5px;
+}
+.deleteCell {
+    text-align: center;
+}
+button {
+    border-radius: 0px;
+}
+
+.inputArea {
+    display:flex;
+    justify-content: space-around;
+}
+input {
+    border:1px solid black;
+    height: 1.2rem;
+}
+#addEmployeeButton {
+    color:blue;
+}
