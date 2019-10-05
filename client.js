@@ -59,10 +59,12 @@ function printToPage(newPerson) {
 
 function updateTotalMontly() {
     // Yes not the fastest to re-check everytime.
-    let totalAnnualy = 0;
-    for (let i = 0; i < employeeArray.length; i++) {
-        totalAnnualy += employeeArray[i].salary;
-    }
+    // let totalAnnualy = 0;
+    // for (let i = 0; i < employeeArray.length; i++) {
+    //     totalAnnualy += employeeArray[i].salary;
+    // }
+    // lets try with reduce
+    let totalAnnualy = employeeArray.reduce((total, currentPerson) => total += currentPerson.salary,0);
     // console.log(totalAnnualy);
     let totalMonthly = turnIntoNumberString(totalAnnualy / 12);
 
@@ -91,10 +93,20 @@ function clearInputs() {
 }
 
 function deleteEvent() {
+    // get the ID of the employee we're remvoing (we have a lot of John Smiths)
+    //
     let idToRemove = $(this).parent().siblings('#idCell').text();
+    // Filter the employee Array to remove the employee with that ID
+    // 
     employeeArray = employeeArray.filter(x => x.id != idToRemove);
+    // Remove the Row
+    //
     $(this).parent().parent().remove();
+    // | alternative method |
+    // V                    V       
+    //          
     // $(this).closest('tr').remove();
+    // Update Total Monthly at bottom of HTML
     updateTotalMontly();
 
 }
