@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="jquery-3.4.1.min.js"></script>
     <script src="client.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
@@ -27,7 +28,7 @@
             <input id="annualSalary" placeholder="Annual Salary" />
         </div>
         </br>
-        <button id="addEmployeeButton">Submit</button>
+        <button id="addEmployeeButton" class="button_styled">Submit</button>
         
         </div>
         <div class="tableArea">
@@ -37,21 +38,14 @@
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
-                        <th>ID</th>
+                        <th class="numberCell">ID</th>
                         <th>Title</th>
-                        <th>Annual Salary</th>
+                        <th class="numberCell">Annual Salary</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
-                        <td>Jen</td>
-                        <td>Barber</td>
-                        <td>4521</td>
-                        <td>Team Lead</td>
-                        <td>$80,000</td>
-                        <td class="deleteCell"><button class="deleteButton">Delete</button></td>
-                    </tr> -->
+                    <!-- client.js will build table -->
                 </tbody>
                 <tfoot><tr id="footerRow"><td colspan="6"></td></tr></tfoot>
             </table>

@@ -1,6 +1,6 @@
 let employeeArray = [];
 // let totalAnnualy = 0; turned off for now
-
+let waitTime = 0;
 
 console.log(employeeArray);
 
@@ -11,23 +11,37 @@ function onReady() {
     updateTotalMontly();
     $('tbody').on('click', '.deleteButton', deleteEvent);
 
-    // Test employees
+    // Initialize a few employees
 
     addEmployee("Mister", "Rodgers", "4562", "Product Manager", "15012");
     addEmployee("Fred", "Yomama", "66743", "Custodial Technician", "$500,000");
     addEmployee("Bill", "Gates", "4544", "Baseball Pitcher", "34,000");
 
+    // after first table is built set new waitTime
+    waitTime = 500;
+    // Focus on first input field
+    $('#firstName').focus();
+    
 }
 
 function addEmployee(first, last, id, title, salary) {
+    first = $('#firstName').val() || first;
+    console.log(typeof first);
+    if(typeof first != 'string'){
+        alert("Need First Name");
+        $('#firstName').focus();
+    }
     // Get inputs & create object
     salary = salary || $('#annualSalary').val();
+    first = $('#firstName').val() || first;  // first was returning the event object without this
     let newPerson = {
-        first: first || $('#firstName').val(),
-        last: last || $('#lastName').val(),
-        id: id || $('#idNum').val(),
-        title: title || $('#title').val(),
-        salary: Number(salary.replace(/[^0-9\.]+/g, '')) // Thank you Stack Overflow
+        first: first,
+        last:  $('#lastName').val() || last,
+        id: $('#idNum').val() || id,
+        title: $('#title').val() || title,
+        salary: Number(salary.replace(/[^0-9\.]/g, '')) // Thank you Stack Overflow for RegEx help.
+        // [^0-9\.] = (^) exclude everything that isn't 0-9 or the dot (we use backslash to say dot \.)
+        // we append the g after the /RegEx/ statement to check the entire string (global)
     }
     
     // Add object to array
@@ -46,15 +60,15 @@ function addEmployee(first, last, id, title, salary) {
 function printToPage(newPerson) {
     // console.log(newPerson); // For testing
     let formattedSalary = turnIntoNumberString(newPerson.salary);
-    $('tbody').append(`
+    $('tbody').append($(`
     <tr>
         <td>${newPerson.first}</td>
         <td>${newPerson.last}</td>
-        <td id="idCell">${newPerson.id}</td>
+        <td id="idCell" class="numberCell">${newPerson.id}</td>
         <td>${newPerson.title}</td>
-        <td>${formattedSalary}</td>
+        <td class="numberCell">${formattedSalary}</td>
         <td class="deleteCell"><button class="deleteButton">Delete</button></td>
-    </tr>`);
+    </tr>`).hide().fadeIn(waitTime));
 }
 
 function updateTotalMontly() {
@@ -63,7 +77,12 @@ function updateTotalMontly() {
     // for (let i = 0; i < employeeArray.length; i++) {
     //     totalAnnualy += employeeArray[i].salary;
     // }
-    // lets try with reduce
+    // This works, So lets try with reduce:
+    // setup an Accumulator, lets call it total,
+    // use the name currentPerson to go through array
+    // add currentPerson's salary property to the total
+    // set the starting value of total to 0
+    //
     let totalAnnualy = employeeArray.reduce((total, currentPerson) => total += currentPerson.salary,0);
     // console.log(totalAnnualy);
     let totalMonthly = turnIntoNumberString(totalAnnualy / 12);
@@ -73,14 +92,15 @@ function updateTotalMontly() {
 
 }
 
-// This was taken from Stack Overflow.
-// While I was tempted to use the RegEx 
-// This seems like a good thing to get used to
+// This was adopted from Stack Overflow.
+// Who knew there was a Intl object with methods to do this? 
+// 
 //
 function turnIntoNumberString(numberToFormat) {
-    console.log(numberToFormat);
-    let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', });
-    console.log(formatter.format(numberToFormat)); // For Testing
+    // console.log(numberToFormat);  // For Testing
+    let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits:0, maximumFractionDigits: 0, });
+    // console.log(formatter.format(numberToFormat));  // For Testing
+    
     return formatter.format(numberToFormat);
 }
 
@@ -90,6 +110,7 @@ function clearInputs() {
     ID = $('#idNum').val("");
     title = $('#title').val("");
     salary = $('#annualSalary').val("");
+    $('#firstName').focus();
 }
 
 function deleteEvent() {
@@ -109,4 +130,10 @@ function deleteEvent() {
     // Update Total Monthly at bottom of HTML
     updateTotalMontly();
 
+}
+
+function checkFields() {
+    if(!$('#firstName').val()){
+        console.log("need first name");
+    }
 }
