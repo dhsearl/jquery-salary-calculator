@@ -8,6 +8,10 @@ $(onReady);
 
 function onReady() {
     $('#addEmployeeButton').on('click', addEmployee);
+    $( ".inputArea" ).on( "keydown", function(event) { // Adapted from Stack Overflow to allow Enter Key to submit from fields
+        if(event.which == 13) 
+           addEmployee();
+      });
     updateTotalMontly();
     $('tbody').on('click', '.deleteButton', deleteEvent);
 
@@ -21,40 +25,58 @@ function onReady() {
     waitTime = 500;
     // Focus on first input field
     $('#firstName').focus();
-    
+
 }
 
 function addEmployee(first, last, id, title, salary) {
+    // Built this way so we can batch enter employees
+    // Get inputs or use arguments
     first = $('#firstName').val() || first;
-    console.log(typeof first);
-    if(typeof first != 'string'){
+    last = $('#lastName').val() || last;
+    id = $('#idNum').val() || id;
+    title = $('#title').val() || title;
+    salary = $('#annualSalary').val() || salary;
+
+    // Valitdate Inputs
+    if (typeof first != 'string') {
         alert("Need First Name");
         $('#firstName').focus();
-    }
-    // Get inputs & create object
-    salary = salary || $('#annualSalary').val();
-    first = $('#firstName').val() || first;  // first was returning the event object without this
-    let newPerson = {
-        first: first,
-        last:  $('#lastName').val() || last,
-        id: $('#idNum').val() || id,
-        title: $('#title').val() || title,
-        salary: Number(salary.replace(/[^0-9\.]/g, '')) // Thank you Stack Overflow for RegEx help.
-        // [^0-9\.] = (^) exclude everything that isn't 0-9 or the dot (we use backslash to say dot \.)
-        // we append the g after the /RegEx/ statement to check the entire string (global)
-    }
-    
-    // Add object to array
-    employeeArray.push(newPerson);
+    } else if (last === undefined) {
+        alert("Need Last Name");
+        $('#lastName').focus();
+    } else if (id === undefined) {
+        alert("Need ID Number");
+        $('#idNum').focus();
+    } else if (title === undefined) {
+        alert("Need Job Title");
+        $('#title').focus();
+    } else if (salary === undefined) {
+        alert("Need Employee Salary");
+        $('#annualSalary').focus();
+    } else {
+        // create object
+        let newPerson = {
+            first: first,
+            last: last,
+            id: id,
+            title: title,
+            salary: Number(salary.replace(/[^0-9\.]/g, '')) // Thank you Stack Overflow for RegEx help.
+            // [^0-9\.] = (^) exclude everything that isn't 0-9 or the dot (we use backslash to say dot \.)
+            // we append the g after the /RegEx/ statement to check the entire string (global)
+        }
 
-    // Housekeeping when we add employee
-    // update & print monthly total on HTML
-    // clear inputs
-    // Print new person to HTML
-    // totalAnnualy += newPerson.salary;    // turned off for now
-    updateTotalMontly();
-    clearInputs();
-    printToPage(newPerson);
+        // Add object to array
+        employeeArray.push(newPerson);
+
+        // Housekeeping when we add employee to array
+        // update & print monthly total on HTML
+        // clear inputs
+        // Print new person to HTML
+        // totalAnnualy += newPerson.salary;    // turned off for now
+        updateTotalMontly();
+        clearInputs();
+        printToPage(newPerson);
+    }
 }
 
 function printToPage(newPerson) {
@@ -83,12 +105,12 @@ function updateTotalMontly() {
     // add currentPerson's salary property to the total
     // set the starting value of total to 0
     //
-    let totalAnnualy = employeeArray.reduce((total, currentPerson) => total += currentPerson.salary,0);
+    let totalAnnualy = employeeArray.reduce((total, currentPerson) => total += currentPerson.salary, 0);
     // console.log(totalAnnualy);
     let totalMonthly = turnIntoNumberString(totalAnnualy / 12);
 
     $('#salaryTotalArea').empty();
-    $('#salaryTotalArea').append(`<p>Total Monthly: ${totalMonthly}</p>`);
+    $('#salaryTotalArea').append(`<h3>Total Monthly: ${totalMonthly}</h3>`);
 
 }
 
@@ -98,9 +120,9 @@ function updateTotalMontly() {
 //
 function turnIntoNumberString(numberToFormat) {
     // console.log(numberToFormat);  // For Testing
-    let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits:0, maximumFractionDigits: 0, });
+    let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0, });
     // console.log(formatter.format(numberToFormat));  // For Testing
-    
+
     return formatter.format(numberToFormat);
 }
 
@@ -133,7 +155,7 @@ function deleteEvent() {
 }
 
 function checkFields() {
-    if(!$('#firstName').val()){
+    if (!$('#firstName').val()) {
         console.log("need first name");
     }
 }
