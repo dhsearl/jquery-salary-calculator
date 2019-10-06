@@ -1,71 +1,100 @@
-div{
+div {
     margin: 0;
 }
-html{
-    background-color:#fffd99;
+
+html {
+    background-color: #fffd99;
 }
-body{
-    color: #F2F2F2;
+
+body {
+    color: #13193F;
     margin: 0 auto;
-    padding:10px;
+    padding: 10px;
     width: 100%;
     max-width: 900px;
     font-family: 'Open Sans', sans-serif;
-
 }
 
 /* Headings */
-h1,h2 {
+
+h1, h2, h3 {
     font-family: 'Roboto', sans-serif;
     padding: .7rem;
 }
-h1{
+
+h1 {
+    background-color: #13193F;
+    color: #F2F2F2;
+    /* padding-top: 3rem; */
+    padding-bottom: 0;
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #021E72;
+    font-weight: 700;
+}
+
+#calc {
+    margin-left: .7rem;
+    width: 25px;
+}
+
+header {
     background-color: #13193F;
     color: #F2F2F2;
     padding-top: 3rem;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-}
-h2{
-    font-family: 'Roboto', sans-serif;
-    color: #021E72;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-end;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 /* Table Formatting */
-table{
+
+table {
     width: 100%;
-    border-radius: 4px;
+    border-radius: 5px;
     padding: 5px;
     border-collapse: collapse;
     table-layout: auto;
 }
-thead{
+
+thead {
     background-color: #13193F;
-    color:#F2F2F2;
-}
-tbody{
-    /* background-color: rgba(3, 50, 191, .2); */
-    background-color: #f7b688; /* testing */
-    color:#13193F;
-}
-th{
-    text-align:left;
-    padding: 5px;
-}
-th:first-child{
-    border-top-left-radius: 4px;
-}
-th:last-child{
-    border-top-right-radius: 4px;
+    color: #F2F2F2;
 }
 
-td{
+tbody {
+    /* background-color: rgba(3, 50, 191, .2); */
+    background-color: #f7b688;
+    /* testing */
+    color: #13193F;
+}
+
+th {
+    text-align: left;
+    padding: 5px;
+}
+
+th:first-child {
+    border-top-left-radius: 5px;
+}
+
+th:last-child {
+    border-top-right-radius: 5px;
+}
+
+td {
     /* border: 1px solid black; */
     width: 16%;
     text-align: left;
     padding: 2px 5px;
     /* color: #fff; */
 }
+
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
@@ -74,96 +103,87 @@ tr:nth-child(even) {
     text-align: right;
     padding-right: 2.5rem;
 }
-tfoot td{
+
+tfoot td {
     background-color: #13193F;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px; 
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
+
 #footerRow {
     height: 2rem;
 }
+
 /* Done with table formatting */
 
-
 /* Input box + button formatting */
+
 .deleteCell {
     text-align: right;
-    
 }
+
 button {
     border-radius: 0px;
 }
 
 .inputArea {
-    display:flex;
+    display: flex;
     justify-content: space-between;
 }
+
 input {
-    border:1px solid black;
+    border: 1px solid black;
     background-color: #F2F2F2;
     padding: .3rem .3rem;
     height: 1.4rem;
     font-size: 1.2rem;
-    width:25%;
+    width: 25%;
 }
-::placeholder{
+
+::placeholder {
     color: rgba(3, 50, 191, .5);
 }
 
-#salaryTotalArea{
-    text-align:right;
-    color: #13193F;
+#salaryTotalArea {
+    text-align: right;
     font-weight: 900;
     margin-right: 24px;
 }
 
-.button_styled {
 
+.button_styled {
     display: inline-block;
     text-align: center;
     text-decoration: none;
-    float:right;
+    float: right;
     /* create a small space when buttons wrap on 2 lines */
     margin: 2px 0;
     margin-right: 24px;
     /* invisible border (will be colored on hover/focus) */
     border: solid 1px #FFF;
     border-radius: 4px;
-  
-  
     font-family: 'Roboto', sans-serif;
     font-size: 1em;
     color: #f2f2f2;
     background-color: #13193F;
     /* size comes from text & padding (no width/height) */
     padding: .7rem 1.7rem;
-  }
-
+}
 
 .deleteButton {
-
     display: inline-block;
     text-align: center;
     text-decoration: none;
-  
     /* create a small space when buttons wrap on 2 lines */
     margin: 2px 0;
     margin-right: 20px;
     /* invisible border (will be colored on hover/focus) */
     border: solid 1px #FFF;
     border-radius: 4px;
-  
-  
     font-family: 'Roboto', sans-serif;
     font-size: .9em;
     color: #f2f2f2;
-    background-color:#13193F;
+    background-color: #13193F;
     /* size comes from text & padding (no width/height) */
     padding: .5rem 1rem;
-  }
-/* Color Theme Swatches in Hex */
-.Begira-identity-design-1-hex { color: #13193F; }
-.Begira-identity-design-2-hex { color: #0332BF; }
-.Begira-identity-design-3-hex { color: #032BA5; }
-.Begira-identity-design-4-hex { color: #021E72; }
-.Begira-identity-design-5-hex { color: #F2F2F2; }
+}

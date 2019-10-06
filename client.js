@@ -18,7 +18,7 @@ function onReady() {
     // Initialize a few employees
 
     addEmployee("Mister", "Rodgers", "4562", "Product Manager", "15012");
-    addEmployee("Fred", "Yomama", "66743", "Custodial Technician", "$500,000");
+    addEmployee("Fred", "Yomama", "66743", "Custodial Technician", "$50,000");
     addEmployee("Bill", "Gates", "4544", "Baseball Pitcher", "34,000");
 
     // after first table is built set new waitTime
@@ -111,10 +111,15 @@ function updateTotalMontly() {
 
     $('#salaryTotalArea').empty();
     $('#salaryTotalArea').append(`<h3>Total Monthly: ${totalMonthly}</h3>`);
+    
+    // If over 20k monthly, update salary total area.
+    if ( (totalAnnualy/12) > 20000 ){
+        $('h3').css({'color':'white','background-color':'red'});
+     } 
 
 }
 
-// This was adopted from Stack Overflow.
+// This was adapted from Stack Overflow.
 // Who knew there was a Intl object with methods to do this? 
 // 
 //
@@ -152,10 +157,4 @@ function deleteEvent() {
     // Update Total Monthly at bottom of HTML
     updateTotalMontly();
 
-}
-
-function checkFields() {
-    if (!$('#firstName').val()) {
-        console.log("need first name");
-    }
 }
