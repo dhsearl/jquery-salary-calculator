@@ -4,7 +4,7 @@
 
 Duration: *2-day sprint*
 
-The project was to create a salary calculator. The given requirements were 
+The project was to create a salary calculator. The given requirements were:
 * create and update a table
 * take user input
 * allow for the deletion of employees
