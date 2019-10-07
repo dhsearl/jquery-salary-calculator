@@ -8,10 +8,10 @@ $(onReady);
 
 function onReady() {
     $('#addEmployeeButton').on('click', addEmployee);
-    $( ".inputArea" ).on( "keydown", function(event) { // Adapted from Stack Overflow to allow Enter Key to submit from fields
-        if(event.which == 13) 
-           addEmployee();
-      });
+    $(".inputArea").on("keydown", function (event) { // Adapted from Stack Overflow to allow Enter Key to submit from fields
+        if (event.which == 13)
+            addEmployee();
+    });
     updateTotalMontly();
     $('tbody').on('click', '.deleteButton', deleteEvent);
 
@@ -98,21 +98,39 @@ function printToPage(newPerson) {
 
 function printEntireArray(newPerson) {
     // Remember there are two changes needed in deleteEvent();
-    
+    // 
     $('tbody').empty();
-    // console.log(newPerson); // For testing
-    employeeArray.forEach( employee => {
-        let formattedSalary = turnIntoNumberString(employee.salary);
-        $('tbody').append($(`
+
+    // Refresh table except last row
+    for (let i = 0; i < employeeArray.length - 1; i++) {
+
+        let formattedSalary = turnIntoNumberString(employeeArray[i].salary);
+
+        $('tbody').append(`
+    <tr>
+        <td>${employeeArray[i].first}</td>
+        <td>${employeeArray[i].last}</td>
+        <td id="idCell" class="numberCell">${employeeArray[i].id}</td>
+        <td>${employeeArray[i].title}</td>
+        <td class="numberCell">${formattedSalary}</td>
+        <td class="deleteCell"><button class="deleteButton">Delete</button></td>
+    </tr>`);
+    }
+
+    // Print Last row with Animation
+    let lastEmployee = employeeArray[employeeArray.length - 1];
+
+    let formattedSalary = turnIntoNumberString(lastEmployee.salary);
+    $('tbody').append($(`
         <tr>
-            <td>${employee.first}</td>
-            <td>${employee.last}</td>
-            <td id="idCell" class="numberCell">${employee.id}</td>
-            <td>${employee.title}</td>
+            <td>${lastEmployee.first}</td>
+            <td>${lastEmployee.last}</td>
+            <td id="idCell" class="numberCell">${lastEmployee.id}</td>
+            <td>${lastEmployee.title}</td>
             <td class="numberCell">${formattedSalary}</td>
             <td class="deleteCell"><button class="deleteButton">Delete</button></td>
         </tr>`).hide().fadeIn(waitTime));
-    });
+
    
 }
 
@@ -134,11 +152,11 @@ function updateTotalMontly() {
 
     $('#salaryTotalArea').empty();
     $('#salaryTotalArea').append(`<h3>Total Monthly: ${totalMonthly}</h3>`);
-    
+
     // If over 20k monthly, update salary total area.
-    if ( (totalAnnualy/12) > 20000 ){
-        $('h3').css({'color':'white','background-color':'red'});
-     } 
+    if ((totalAnnualy / 12) > 20000) {
+        $('h3').css({ 'color': 'white', 'background-color': 'red' });
+    }
 
 }
 
