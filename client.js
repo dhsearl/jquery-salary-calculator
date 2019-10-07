@@ -75,7 +75,8 @@ function addEmployee(first, last, id, title, salary) {
         // totalAnnualy += newPerson.salary;    // turned off for now
         updateTotalMontly();
         clearInputs();
-        printToPage(newPerson);
+        // printToPage(newPerson);
+        printToPage2();
     }
 }
 
@@ -91,6 +92,24 @@ function printToPage(newPerson) {
         <td class="numberCell">${formattedSalary}</td>
         <td class="deleteCell"><button class="deleteButton">Delete</button></td>
     </tr>`).hide().fadeIn(waitTime));
+}
+
+function printToPage2(newPerson) {
+    $('tbody').empty();
+    // console.log(newPerson); // For testing
+    employeeArray.forEach( employee => {
+        let formattedSalary = turnIntoNumberString(employee.salary);
+        $('tbody').append($(`
+        <tr>
+            <td>${employee.first}</td>
+            <td>${employee.last}</td>
+            <td id="idCell" class="numberCell">${employee.id}</td>
+            <td>${employee.title}</td>
+            <td class="numberCell">${formattedSalary}</td>
+            <td class="deleteCell"><button class="deleteButton">Delete</button></td>
+        </tr>`).hide().fadeIn(waitTime));
+    });
+   
 }
 
 function updateTotalMontly() {
