@@ -76,11 +76,13 @@ function addEmployee(first, last, id, title, salary) {
         updateTotalMontly();
         clearInputs();
         // printToPage(newPerson);
-        printToPage2();
+        printEntireArray();
     }
 }
 
 function printToPage(newPerson) {
+    // Remember there are two changes needed in deleteEvent();
+
     // console.log(newPerson); // For testing
     let formattedSalary = turnIntoNumberString(newPerson.salary);
     $('tbody').append($(`
@@ -94,7 +96,9 @@ function printToPage(newPerson) {
     </tr>`).hide().fadeIn(waitTime));
 }
 
-function printToPage2(newPerson) {
+function printEntireArray(newPerson) {
+    // Remember there are two changes needed in deleteEvent();
+    
     $('tbody').empty();
     // console.log(newPerson); // For testing
     employeeArray.forEach( employee => {
@@ -168,7 +172,12 @@ function deleteEvent() {
     employeeArray = employeeArray.filter(x => x.id != idToRemove);
     // Remove the Row
     //
-    $(this).parent().parent().remove();
+
+
+    // Now needed for printEntireArray() functionality.
+    printEntireArray();
+    // No longer needed if using printEntireArray() function;
+    // $(this).parent().parent().remove();
     // | alternative method |
     // V                    V       
     //          
