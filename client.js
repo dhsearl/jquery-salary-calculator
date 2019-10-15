@@ -12,7 +12,7 @@ function onReady() {
         if (event.which == 13)
             addEmployee();
     });
-    updateTotalMontly();
+    
     $('tbody').on('click', '.deleteButton', deleteEvent);
 
     // Initialize a few employees
@@ -20,7 +20,7 @@ function onReady() {
     addEmployee("Mister", "Rodgers", "4562", "Product Manager", "15012");
     addEmployee("Fred", "Yomama", "66743", "Custodial Technician", "$50,000");
     addEmployee("Bill", "Gates", "4544", "Baseball Pitcher", "34,000");
-
+    updateTotalMontly();
     // after first table is built set new waitTime
     waitTime = 500;
     // Focus on first input field
@@ -80,29 +80,13 @@ function addEmployee(first, last, id, title, salary) {
     }
 }
 
-function printToPage(newPerson) {
-    // Remember there are two changes needed in deleteEvent();
-
-    // console.log(newPerson); // For testing
-    let formattedSalary = turnIntoNumberString(newPerson.salary);
-    $('tbody').append($(`
-    <tr>
-        <td>${newPerson.first}</td>
-        <td>${newPerson.last}</td>
-        <td id="idCell" class="numberCell">${newPerson.id}</td>
-        <td>${newPerson.title}</td>
-        <td class="numberCell">${formattedSalary}</td>
-        <td class="deleteCell"><button class="deleteButton">Delete</button></td>
-    </tr>`).hide().fadeIn(waitTime));
-}
-
-function printEntireArray(newPerson) {
+function printEntireArray() {
     // Remember there are two changes needed in deleteEvent();
     // 
     $('tbody').empty();
 
-    // Refresh table except last row
-    for (let i = 0; i < employeeArray.length - 1; i++) {
+    // Refresh table 
+    for (let i = 0; i < employeeArray.length; i++) {
 
         let formattedSalary = turnIntoNumberString(employeeArray[i].salary);
 
@@ -116,21 +100,7 @@ function printEntireArray(newPerson) {
         <td class="deleteCell"><button class="deleteButton">Delete</button></td>
     </tr>`);
     }
-
-    // Print Last row with Animation
-    let lastEmployee = employeeArray[employeeArray.length - 1];
-
-    let formattedSalary = turnIntoNumberString(lastEmployee.salary);
-    $('tbody').append($(`
-        <tr>
-            <td>${lastEmployee.first}</td>
-            <td>${lastEmployee.last}</td>
-            <td id="idCell" class="numberCell">${lastEmployee.id}</td>
-            <td>${lastEmployee.title}</td>
-            <td class="numberCell">${formattedSalary}</td>
-            <td class="deleteCell"><button class="deleteButton">Delete</button></td>
-        </tr>`).hide().fadeIn(waitTime));
-
+    updateTotalMontly();
    
 }
 
